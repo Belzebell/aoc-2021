@@ -11,7 +11,7 @@ while (($line = fgets($input)) !== false) {
         $number_set = explode(',', $line);
     }
     else { //part of the bingo boards
-        if($line == PHP_EOL) { //means the next board is coming up
+        if(trim($line) == '') { //means the next board is coming up
             $row_count = 0;
             $board_count++;
         }
