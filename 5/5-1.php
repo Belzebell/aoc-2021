@@ -1,0 +1,59 @@
+<?php
+
+$lines = [];
+
+//read input and format it into the set of numbers and the bingo boards
+$input = fopen("input.txt", "r");
+while (($input_line = fgets($input)) !== false) {
+    $lines[] = trim($input_line);
+}
+fclose($input);
+
+
+$line_map = []; //multidimensional array with every point where lines are detected (first key is y, second x, as y is vertical)
+foreach ($lines as $line) {
+    $line = str_replace(' -> ', ',', $line); //replace the arrow with another comma so we can explode into 4 coordinates easily
+    list($x1, $y1, $x2, $y2) = explode(',', $line); //first two are start, second two are end
+
+    //only consider horizontal or vertical lines (x1 == x2 or y1 == y2)
+    if($x1 == $x2 || $y1 == $y2) {
+
+        if($y1 == $y2) { //if y stays the same, mark the range of all x
+            foreach (range($x1, $x2) as $x_coordinate) {
+                if(!isset($line_map[$y1])){
+                    $line_map[$y1] = []; //check if we already have an x row for this y coordinate
+                }
+                if(!isset($line_map[$y1][$x_coordinate])){
+                    $line_map[$y1][$x_coordinate] = 1; //if no entry for this y/x position existed, initalise with 1 as it's the first occurrence
+                }
+                else {
+                    $line_map[$y1][$x_coordinate]++; //otherwise increase the count
+                }
+            }
+        }
+        else { //if x stays the same, mark the range of all y
+            foreach (range($y1, $y2) as $y_coordinate) {
+                if(!isset($line_map[$y_coordinate])){
+                    $line_map[$y_coordinate] = []; //check if we already have an x row for this y coordinate
+                }
+                if(!isset($line_map[$y_coordinate][$x1])){
+                    $line_map[$y_coordinate][$x1] = 1; //if no entry for this y/x position existed, initalise with 1 as it's the first occurrence
+                }
+                else {
+                    $line_map[$y_coordinate][$x1]++; //otherwise increase the count
+                }
+            }
+        }
+    }
+}
+
+//now we need to find every value in the array that is higher than 1
+$line_count = 0;
+foreach ($line_map as $row) {
+    foreach ($row as $single_pos) {
+        if($single_pos > 1) {
+            $line_count++; //if a value is greater than one increase the counter
+        }
+    }
+}
+echo $line_count . PHP_EOL;
