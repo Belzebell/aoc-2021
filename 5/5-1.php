@@ -17,31 +17,14 @@ foreach ($lines as $line) {
 
     //only consider horizontal or vertical lines (x1 == x2 or y1 == y2)
     if($x1 == $x2 || $y1 == $y2) {
-
         if($y1 == $y2) { //if y stays the same, mark the range of all x
             foreach (range($x1, $x2) as $x_coordinate) {
-                if(!isset($line_map[$y1])){
-                    $line_map[$y1] = []; //check if we already have an x row for this y coordinate
-                }
-                if(!isset($line_map[$y1][$x_coordinate])){
-                    $line_map[$y1][$x_coordinate] = 1; //if no entry for this y/x position existed, initalise with 1 as it's the first occurrence
-                }
-                else {
-                    $line_map[$y1][$x_coordinate]++; //otherwise increase the count
-                }
+                $line_map = markMap($line_map, $x_coordinate, $y1);
             }
         }
         else { //if x stays the same, mark the range of all y
             foreach (range($y1, $y2) as $y_coordinate) {
-                if(!isset($line_map[$y_coordinate])){
-                    $line_map[$y_coordinate] = []; //check if we already have an x row for this y coordinate
-                }
-                if(!isset($line_map[$y_coordinate][$x1])){
-                    $line_map[$y_coordinate][$x1] = 1; //if no entry for this y/x position existed, initalise with 1 as it's the first occurrence
-                }
-                else {
-                    $line_map[$y_coordinate][$x1]++; //otherwise increase the count
-                }
+                $line_map = markMap($line_map, $x1, $y_coordinate);
             }
         }
     }
@@ -56,4 +39,18 @@ foreach ($line_map as $row) {
         }
     }
 }
-echo $line_count . PHP_EOL;
+echo $line_count . PHP_EOL; //done!
+
+function markMap($map, $x, $y) {
+    if(!isset($map[$y])){
+        $map[$y] = []; //check if we already have an x row for this y coordinate
+    }
+    if(!isset($map[$y][$x])){
+        $map[$y][$x] = 1; //if no entry for this y/x position existed, initalise with 1 as it's the first occurrence
+    }
+    else {
+        $map[$y][$x]++; //otherwise increase the count
+    }
+
+    return $map;
+}
