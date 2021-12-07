@@ -9,7 +9,7 @@ if(!isset($days_to_monitor)) {
 
 $fish_input = [];
 
-//read input and format it into the set of numbers and the bingo boards
+//read input and format it into an array
 $input = fopen("input.txt", "r");
 while (($input_line = fgets($input)) !== false) {
     $fish_input = explode(',', trim($input_line));

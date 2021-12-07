@@ -2,7 +2,7 @@
 
 $lines = [];
 
-//read input and format it into the set of numbers and the bingo boards
+//read input and just trim the string for now, we will format in the loop after
 $input = fopen("input.txt", "r");
 while (($input_line = fgets($input)) !== false) {
     $lines[] = trim($input_line);
