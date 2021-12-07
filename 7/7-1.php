@@ -9,8 +9,6 @@ while (($input_line = fgets($input)) !== false) {
 }
 fclose($input);
 
-// so we can get the median
-
 //sort array and get the median
 sort($locations);
 $length = count($locations);
