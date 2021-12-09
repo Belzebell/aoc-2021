@@ -1,6 +1,8 @@
 <?php
 
-//define array constant for the unique segment counts we're after (count => resulting number)
+/**
+ * array constant for the unique segment counts we're after (count => resulting number)
+ */
 const SEGMENT_COUNT = [2 => 1,
     4 => 4,
     3 => 7,
