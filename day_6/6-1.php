@@ -44,4 +44,4 @@ while ($i < $days_to_monitor) {
 }
 
 //get the sum of all fish in the array
-echo array_sum($fish_group) . PHP_EOL;
+echo "After $days_to_monitor days there would be " . array_sum($fish_group) . "." . PHP_EOL;

@@ -45,7 +45,8 @@ foreach ($number_set as $called_number) {
 }
 
 //now that we're done looping through ALL called numbers, use the last winner board for the puzzle answer
-echo $last_winner_number * sumOfBoard($last_winner_board); //multiply for puzzle answer
+//multiply for puzzle answer
+echo "The final score of the last winning board is " . $last_winner_number * sumOfBoard($last_winner_board) . "." . PHP_EOL;
 
 function markBoard(&$board, $number) {
     foreach ($board as $key => $row) {

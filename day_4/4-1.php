@@ -32,7 +32,8 @@ foreach ($number_set as $called_number) {
         $winner = markBoard($board, $called_number);
 
         if ($winner) {
-            echo $called_number * sumOfBoard($board); //multiply for puzzle answer
+            //multiply for puzzle answer
+            echo "The final score of the winning board is " . $called_number * sumOfBoard($board) . "." . PHP_EOL;
             exit; //we're done!
         }
     }

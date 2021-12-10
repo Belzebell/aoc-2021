@@ -39,7 +39,7 @@ foreach ($line_map as $row) {
         }
     }
 }
-echo $line_count . PHP_EOL; //done!
+echo "At least two lines overlap at $line_count points." . PHP_EOL; //done!
 
 function markMap($map, $x, $y) {
     if(!isset($map[$y])){
