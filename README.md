@@ -7,3 +7,5 @@ I have done my best to comment my code with my thought process to facilitate fol
 The test input for each day is added as 2 files into each day's folder. 
 "testinput.txt" is the "official" small test set given on the puzzle question.
 "input.txt" is the actual test input which is personalised for each user of Advent of Code. 
+
+The original questions as well as the answers produced by the given code files can be found in each day's "puzzle.txt".
