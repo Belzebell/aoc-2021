@@ -2005,7 +2005,7 @@ $array = [156,
 //first, let's create the list of 3-piece sets              
 $end = count($array)-1;
 $sets = [];
-foreach( $array as $key => $value ){
+foreach($array as $key => $value){
         if($key < $end-1) //do not set last key (from previous or last) (as we wont get 3 added to this anymore)
             $sets[$key+1] = $array[$key];
         
@@ -2019,10 +2019,13 @@ foreach( $array as $key => $value ){
 
 //then apply the solution from puzzle 1-1
 $increases = 0;
-$previous = reset($array); //get the first value
-foreach( $array as $value ){
-    if($value > $previous) //if new value greater than previous, we have an increase! else do nothing.
-        $increases++; 
-    $previous = $value; //afterwards, set new value as the previous one
+$prev = reset($sets); //get the first value
+foreach($sets as $value){
+    //if new value greater than previous, we have an increase! else do nothing.
+    if($value > $prev) {
+        $increases++;
+    }
+    $prev = $value; //afterwards, set new value as the previous one
 }
-echo $increases;
+
+echo $increases . PHP_EOL;
