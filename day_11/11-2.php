@@ -1,22 +1,26 @@
 <?php
 
+//SAME CODE AS PART 1 solution - just instead of looping a fixed x times, we just loop until the flash count of a single loop is exactly 100 (the count of octopuses)
+
 const MAX_ENERGY = 9; //if charge is higher than this, the octopus flashes
-const MAX_STEPS = 100; //these are the steps we wanna run
 
 //read input and format it into multidimensional of octopuses (10 by 10)
 $octopus_group = [];
+$octopus_count = 0; //with the given 10x10 grids this will always be 100 - but checking it during input makes the code dynamic for different size grids
 $input = fopen("input.txt", "r");
 while (($input_line = fgets($input)) !== false) {
     $split_line = str_split(trim($input_line)); //split numbers into array
     $octopus_group[] = $split_line; //add array to octopus_group array
+    $octopus_count += count($split_line);
 }
 fclose($input);
 
-//loop until we reach max step count
 $steps = 0;
 $flash_count = 0;
-while ($steps < MAX_STEPS) {
+//loop until the flash count of the last loop was exactly same as octopus count
+while ($flash_count != $octopus_count) {
     $steps++; //increase steps
+    $flash_list = [];
 
     //first, increase all octopuse values by 1
     increaseOctopusEnergy($octopus_group);
@@ -24,12 +28,12 @@ while ($steps < MAX_STEPS) {
     //now recursively check for flashes
     findFlashes($octopus_group);
 
-    //lastly, set the flashed octopuses to zero (this is a good time to count how many octopuses flashed)
-    $flash_count += resetFlashedOctopuses($octopus_group);
+    //lastly, set the flashed octopuses to zero (this is a good time to count how many octopuses flashed, so we pass the flash list to see WHICH flashed)
+    $flash_count = resetFlashedOctopuses($octopus_group, $flash_list);
 }
 
 //result
-echo "After " . MAX_STEPS . " steps, there have been a total of $flash_count flashes." . PHP_EOL;
+echo "At " . $steps . " steps, all octopuses synchronise." . PHP_EOL;
 
 
 /**
@@ -86,7 +90,7 @@ function findFlashes(&$group) {
  *
  * @return int how many octopuses where reset (read: how many octopuses flashed)
  */
-function resetFlashedOctopuses(&$group) {
+function resetFlashedOctopuses(&$group, &$flash_list) {
     $reset_count = 0;
     foreach ($group as $k_row => $row) {
         foreach ($row as $k_octo => $octopus) {
