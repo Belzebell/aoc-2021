@@ -6,7 +6,7 @@ const INSTRUCTION_Y = 'fold along y';
 //read input and split it into coordinates for the dots and folding instructions
 $trans_paper = [];
 $instructions = [];
-$input = fopen("testinput.txt", "r");
+$input = fopen("input.txt", "r");
 while (($input_line = fgets($input)) !== false) {
     if(trim($input_line) == "") continue; //skip the empty line between coordinates and instructions
 
