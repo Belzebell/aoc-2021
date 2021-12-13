@@ -24,8 +24,6 @@ while (($input_line = fgets($input)) !== false) {
 }
 fclose($input);
 
-
-$array_1 = [];
 foreach ($instructions as $instr) {
 
     //check instruction whether to fold X or Y
