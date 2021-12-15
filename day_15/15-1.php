@@ -1,13 +1,15 @@
 <?php
 
 //read input and format it into multidimensional of risk levels
-$risk_map = [];
-$input = fopen("input.txt", "r");
-while (($input_line = fgets($input)) !== false) {
-    $split_line = str_split(trim($input_line)); //split numbers into array
-    $risk_map[] = $split_line; //add array to risk map array
+if(!isset($risk_map)) { //check if set here in case we are running part 2 of day 15
+    $risk_map = [];
+    $input = fopen("input.txt", "r");
+    while (($input_line = fgets($input)) !== false) {
+        $split_line = str_split(trim($input_line)); //split numbers into array
+        $risk_map[] = $split_line; //add array to risk map array
+    }
+    fclose($input);
 }
-fclose($input);
 
 //we are solving today with the Dijkstra algorithm
 //distances are all MAX INTEGER
@@ -25,6 +27,8 @@ $queue = ["0_0"];
 while(!empty($queue)) {
 
     //find smallest key in queue as that's the next one we need to check
+    //note: there's room for optimisation here by making the queue a key value pair where value is the distance
+    // this would enable array functions like sort or min rather than a manual lookup and comparison of all values
     $min_distance = PHP_INT_MAX;
     $min_distance_loc = 0;
     foreach ($queue as $key => $q_item) {
