@@ -2,7 +2,7 @@
 
 //read input and format it into multidimensional of risk levels
 $risk_map = [];
-$input = fopen("testinput.txt", "r");
+$input = fopen("input.txt", "r");
 while (($input_line = fgets($input)) !== false) {
     $split_line = str_split(trim($input_line)); //split numbers into array
     $risk_map[] = $split_line; //add array to risk map array
@@ -19,11 +19,25 @@ $visited[0][0] = true; //starting point
 $distances[0][0] = 0; //no distance to starting point
 
 //our current path starts with just 0, 0
-$current_path = ["0_0"];
+$queue = ["0_0"];
 
 //while there are more elements in the path, keep looping (cannot use foreach as we add more elements to current_path)
-for ($i = 0; $i < count($current_path); $i++) {
-    list($y, $x) = explode('_', $current_path[$i]);
+while(!empty($queue)) {
+
+    //find smallest key in queue as that's the next one we need to check
+    $min_distance = PHP_INT_MAX;
+    $min_distance_loc = 0;
+    foreach ($queue as $key => $q_item) {
+        list($y, $x) = explode('_', $q_item);
+        if($min_distance > $distances[$y][$x]) {
+            $min_distance = $distances[$y][$x];
+            $min_distance_loc = $key;
+        }
+    }
+    $lowest_risk = $queue[$min_distance_loc];
+    unset($queue[$min_distance_loc]); //remove the key we are checking from the queue, as we loop until queue is empty
+
+    list($y, $x) = explode('_', $lowest_risk);
     foreach (getNeighbour($risk_map, $y, $x) as $neighbour) {
         //for every neighbour of my current path, check if their distance or the risk map plus current node value are smaller, and assign that
         list($ny, $nx) = explode('_', $neighbour);
@@ -34,7 +48,7 @@ for ($i = 0; $i < count($current_path); $i++) {
         //if this node had not been visited before, add id to the path to visit it in the next loop
         if(!isset($visited[$ny][$nx])) {
             $visited[$ny][$nx] = true; //mark node as visited
-            $current_path[] = $neighbour; //add neighbour to the current path
+            $queue[] = $neighbour; //add neighbour to the current path
         }
     }
 }
