@@ -62,9 +62,8 @@ function markBoard(&$board, $number) {
     }
 
     //after we've replaced all numbers of the board, check the columns (we already checked rows when going per row)
-    $i = 0;
-    while($i < 5) { //loop through columns up to  5 (cannot use count($row) as some rows may have gotten shorter)
-       $column = array_column($board, $i++);
+    for($i = 0; $i < 5; $i++) { //loop through columns up to  5 (cannot use count($row) as some rows may have gotten shorter)
+       $column = array_column($board, $i);
         if(array_sum($column) == 0) {
             return true; //winner by column!
         }

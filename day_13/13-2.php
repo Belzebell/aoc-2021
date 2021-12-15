@@ -171,17 +171,14 @@ function fillEmptyFields($arr, $filler = '.') {
     }
 
     //fill every row of the array with the "empty" filler
-    $i = 0;
     $full_arr = [];
-    while($i <= $highest_y) { //<= as we start from 0
+    for($i = 0; $i <= $highest_y ; $i++) { //<= as we start from 0
         $full_arr[$i] = array_fill(0 , $highest_x+1, $filler); //dot will be our "empty" fields (highest_x+1 as we start from 0)
 
         //if this row exists on the array of actual values, here is the time where we replace the "empty" fields of that row with actual fields
         if(isset($arr[$i])) {
             $full_arr[$i] = array_replace($full_arr[$i], $arr[$i]);
         }
-
-        $i++;
     }
 
     //return the filled up array
