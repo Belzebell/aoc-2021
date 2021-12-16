@@ -27,8 +27,7 @@ $queue = ["0_0"];
 while(!empty($queue)) {
 
     //find smallest key in queue as that's the next one we need to check
-    //note: there's room for optimisation here by making the queue a key value pair where value is the distance
-    // this would enable array functions like sort or min rather than a manual lookup and comparison of all values
+    //note: further research suggests this would be optimised by using an SplPriorityQueue
     $min_distance = PHP_INT_MAX;
     $min_distance_loc = 0;
     foreach ($queue as $key => $q_item) {
