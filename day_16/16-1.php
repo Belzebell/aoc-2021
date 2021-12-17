@@ -11,12 +11,12 @@ const TYPE_LITERAL = 4;
 const OP_MODE_BIT_COUNT = 0;
 const OP_MODE_PACKET_COUNT = 1;
 
-//read input (it is only one line in this puzzle
+//read input (it is only one line in this puzzle)
 $hex_str = "";
 $input = fopen("input.txt", "r");
 while (($input_line = fgets($input)) !== false) {
     $hex_str = trim($input_line);
-    break;
+    break; //break right after the first line
 }
 fclose($input);
 
