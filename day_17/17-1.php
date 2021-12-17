@@ -26,8 +26,8 @@ $max_x = max(abs($target_area['x'][0]), abs($target_area['x'][1]));
 //brute force possibilities from a high y going down, for each y try every x, first time this works is the highest we can go
 $highest = 0;
 $hit_target = false;
-for($y = $max_y; $y > -($max_y); $y--) {
-    for($x = $max_x; $x > -($max_x); $x--) {
+for($y = $max_y*2; $y > -($max_y*2); $y--) {
+    for($x = $max_x*2; $x > -($max_x*2); $x--) {
         //now run the trajectory, keeping track of the highest y coordinate
         $highest = 0;
         $x2 = $x;
